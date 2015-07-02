@@ -1,27 +1,27 @@
-(function ordersControllerIIFE(data, ang){
+(function ordersControllerIIFE(data, ang) {
 
-  var OrdersController = function($scope, $routeParams){
+  var OrdersController = function($routeParams) {
     var customerId = $routeParams.customerId;
-    $scope.orders = null;
+    this.orders = null;
 
     // private function, not available outside of IIFE
-    function init(){
+    function init() {
       // Search for the customer by id
-      for(var i=0, len=$scope.customers.length; i < len; i++){
-        if($scope.customers[i].id == parseInt(customerId)){
-          $scope.orders = $scope.customers[i].orders;
+      for (var i = 0, len = this.customers.length; i < len; i++) {
+        if (this.customers[i].id == parseInt(customerId)) {
+          this.orders = this.customers[i].orders;
           break;
         }
       }
     }
 
-    $scope.customers= data;
+    this.customers = data;
 
     init();
   };
 
   // Prevent the minifier from breaking dependency injection.
-  OrdersController.$inject = ['$scope', '$routeParams'];
+  OrdersController.$inject = ['$routeParams'];
 
   // The Controller is part of the module.
   ang.module('customersApp').controller('ordersController', OrdersController);
