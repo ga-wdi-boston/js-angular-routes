@@ -6,6 +6,7 @@
       .when('/',
             {
               controller: 'customersController',
+              controllerAs: 'customersCtrl',
               templateUrl: 'app/views/customers_done.html'
             }
            )
