@@ -35,7 +35,7 @@ We are going to associate the path ``/`` with the Controller, ``app/controlllers
 
 _The shell page is somewhat like a layout in Rails_
 
-```
+```html
 <!document html>
 <html ng-app="customersApp">
   <head>
@@ -52,9 +52,11 @@ _The shell page is somewhat like a layout in Rails_
 
 ```
 
-* We have added a reference to the angular-route.js file that defines the ngRoute module.  
-	```
-    <script type='text/javascript' src='bower_components/angular-route/angular-route.js'></script>```
+	*We have added a reference to the angular-route.js file that defines the ngRoute module.
+
+```html
+    <script type='text/javascript' src='bower_components/angular-route/angular-route.js'></script>
+```
 
 	* We have already downloaded the ngRoute module that lives in it's own file, angular-route.js. 
 	* We have used the ng-view directive to define where the view for a route will be shown within the page.
