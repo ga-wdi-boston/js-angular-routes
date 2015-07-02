@@ -1,4 +1,4 @@
-(function ordersControllerIIFE(data){
+(function ordersControllerIIFE(data, ang){
 
   var OrdersController = function($scope, $routeParams){
     var customerId = $routeParams.customerId;
@@ -24,6 +24,6 @@
   OrdersController.$inject = ['$scope', '$routeParams'];
 
   // The Controller is part of the module.
-  angular.module('customersApp').controller('ordersController', OrdersController);
+  ang.module('customersApp').controller('ordersController', OrdersController);
 
-})(customerData);
+})(customerData, angular);

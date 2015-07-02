@@ -1,8 +1,8 @@
 ## Angular Routes.
 
-We are going to dive into Angular Routes. Routes are used to "dispatch" a HTTP Request to a URL to some code that will be executed.
+We are going to dive into Angular Routes. Routes are used to "dispatch" a HTTP Request for a URL to some code that will be executed.
 
-Angular will define a set of routes that will map URL, or paths, to a Controller and View.
+Angular will define a set of routes that will map URL, and the paths they contain, to a Controller and View.
 
 ## Objectives
 
@@ -14,9 +14,15 @@ Angular will define a set of routes that will map URL, or paths, to a Controller
 
 ## Demo
 
+#### Setup 
+
+Install angular routes.
+
+``bower install angular-route``
+
 #### Routing
 
-Angular routing works _somewhat_ like Rails routes. But, there are some very crucial differences. 
+Angular routing works _somewhat_ like Rails and Express routes. But, there are some very crucial differences. 
 
 First, we will need to add another Angular module, ngRoute, that will be used to create routes. The angular.js file does not have the code needed for routing. The code for this Routing module is kept in it's own javascript file.
 
@@ -33,8 +39,8 @@ _The shell page is somewhat like a layout in Rails_
 <!document html>
 <html ng-app="customersApp">
   <head>
-    <script type='text/javascript' src='js/angular.js'></script>
-    <script type='text/javascript' src='js/angular-route.js'></script>
+    <script type='text/javascript' src='bower_components/angular/angular.js'></script>
+    <script type='text/javascript' src='bower_components/angular-route/angular-route.js'></script>
     <script type='text/javascript' src='app/app.js'></script>
     <script type='text/javascript' src='app/controllers/customersController.js'></script>
   </head>
@@ -47,14 +53,13 @@ _The shell page is somewhat like a layout in Rails_
 ```
 
 * We have added a reference to the angular-route.js file that defines the ngRoute module.  
-	```<script type='text/javascript' src='js/angular-route.js'></script>	```
+	```
+    <script type='text/javascript' src='bower_components/angular-route/angular-route.js'></script>```
 
-	* We have already downloaded the ngRoute module that lives in it's own file, js/angular-route.js. 
-	* We are using angular version 1.2.2. So we downloaded this angular-route.js file from https://code.angularjs.org/1.2.2/ 
-
-* We have used the ng-view directive to define where the view for a route will be shown within the page.
-	* The index.html, shell page, is like a rails layout. And a ng-view directive is somewhat like a yield statement in a rails layout.
-	* The div with the ng-view directive will be replaced by the contents, HTML, generated from the View.
+	* We have already downloaded the ngRoute module that lives in it's own file, angular-route.js. 
+	* We have used the ng-view directive to define where the view for a route will be shown within the page.
+	* The index.html, shell page, is like a rails/express layout. And a ng-view directive is somewhat like a yield statement in a rails layout.
+	* The div with the ng-view directive will be replaced by the contents, HTML, generated from the Template.
 
 #### Create a app/app.js file
 

@@ -1,7 +1,4 @@
-// Wrap the Controller declaration in an IFFE
-// This will avoid creating another varible, CustomersController
-// In the global namespace.
-(function customersControllerIIFE(data){
+(function customersControllerIIFE(data, ang){
 
   // Controller
   var CustomersController = function($scope){
@@ -16,10 +13,7 @@
     $scope.customers= data;
   };
 
- // Prevent the minifier from breaking dependency injection.
- CustomersController.$inject = ['$scope'];
+  // The Controller is part of the module.
+  ang.module('customersApp').controller('customersController', CustomersController);
 
- // The Controller is part of the module.
- angular.module('customersApp').controller('customersController', CustomersController);
-
-})(customerData);
+})(customerData, angular);

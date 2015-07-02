@@ -1,4 +1,3 @@
-
 // Customer Data
 // For now, we'll store this in Global scope.
 // ONLY until we hook up the back end and use a Factory/Service

@@ -1,5 +1,5 @@
-(function customersAppIIFE(){
-  var app = angular.module('customersApp', ['ngRoute']);
+(function customersAppIIFE(ang){
+  var app = ang.module('customersApp', ['ngRoute']);
 
   app.config(function($routeProvider){
     $routeProvider
@@ -18,4 +18,4 @@
       .otherwise({redirectTo: '/'});
   });
 
-})();
+})(angular);
