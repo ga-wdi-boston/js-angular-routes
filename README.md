@@ -14,7 +14,7 @@ Angular will define a set of routes that will map URL, and the paths they contai
 
 ## Demo
 
-#### Setup 
+#### Setup
 
 Install angular routes.
 
@@ -22,15 +22,15 @@ Install angular routes.
 
 #### Routing
 
-Angular routing works _somewhat_ like Rails and Express routes. But, there are some very crucial differences. 
+Angular routing works _somewhat_ like Rails and Express routes. But, there are some very crucial differences.
 
 First, we will need to add another Angular module, ngRoute, that will be used to create routes. The angular.js file does not have the code needed for routing. The code for this Routing module is kept in it's own javascript file.
 
 As we'll see, Angular routing explicitly connects URL/Paths to specific Angular Controllers and Views.
-	
+
 We are going to associate the path ``/`` with the Controller, ``app/controlllers/customersController.js``, and the View, ``app/views/customers.html``.
 
-	
+
 #### Create the shell page, index.html.
 
 _The shell page is somewhat like a layout in Rails_
@@ -58,7 +58,7 @@ _The shell page is somewhat like a layout in Rails_
     <script type='text/javascript' src='bower_components/angular-route/angular-route.js'></script>
 ```
 
-	* We have already downloaded the ngRoute module that lives in it's own file, angular-route.js. 
+	* We have already downloaded the ngRoute module that lives in it's own file, angular-route.js.
 	* We have used the ng-view directive to define where the view for a route will be shown within the page.
 	* The index.html, shell page, is like a rails/express layout. And a ng-view directive is somewhat like a yield statement in a rails layout.
 	* The div with the ng-view directive will be replaced by the contents, HTML, generated from the Template.
@@ -66,7 +66,7 @@ _The shell page is somewhat like a layout in Rails_
 #### Create a app/app.js file
 
 
-_Notice the use of a Immediately Invoked Function Expression (IIFE). This is a very common pattern used to create an isolated scope and prevent Global namespace pollution._  
+_Notice the use of a Immediately Invoked Function Expression (IIFE). This is a very common pattern used to create an isolated scope and prevent Global namespace pollution._
 
 _In this case we have named the IIFE to 'customersAppIIFE'. The name is only useful when debugging and viewing the call stack_
 
@@ -89,10 +89,10 @@ _In this case we have named the IIFE to 'customersAppIIFE'. The name is only use
 
 ```
 
-* This app will _depend on_ the ngRoute module. So we define the app's dependencies in the Array that is the second argument.  
-	``var app = angular.module('customersApp', ['ngRoute']);``  
+* This app will _depend on_ the ngRoute module. So we define the app's dependencies in the Array that is the second argument.
+	``var app = angular.module('customersApp', ['ngRoute']);``
 
-* The $routeProvider module is injected into the app's config. _(dependency injection)_  
+* The $routeProvider module is injected into the app's config. _(dependency injection)_
 	`` app.config(function($routeProvider){ ``
 
 * Inside the config function we define two routes.
@@ -110,21 +110,19 @@ _In this case we have named the IIFE to 'customersAppIIFE'. The name is only use
 (function customersControllerIIFE(){
 
   // Controller
-  var CustomersController = function($scope){
+  var CustomersController = function(){
 
-    $scope.customers = [{joined: '2000-12-02', name:'John', city:'Chandler', orderTotal: 9.9956}, {joined: '1965-01-25',name:'Zed', city:'Las Vegas', orderTotal: 19.99},{joined: '1944-06-15',name:'Tina', city:'New York', orderTotal:44.99}, {joined: '1995-03-28',name:'Dave', city:'Seattle', orderTotal:101.50}];
+    this.customers = [{joined: '2000-12-02', name:'John', city:'Chandler', orderTotal: 9.9956}, {joined: '1965-01-25',name:'Zed', city:'Las Vegas', orderTotal: 19.99},{joined: '1944-06-15',name:'Tina', city:'New York', orderTotal:44.99}, {joined: '1995-03-28',name:'Dave', city:'Seattle', orderTotal:101.50}];
 
-    $scope.sortBy = "name";
-    $scope.reverse = false;
+    this.sortBy = "name";
+    this.reverse = false;
 
-    $scope.doSort = function(propName){
-      $scope.sortBy = propName;
-      $scope.reverse = !$scope.reverse;
+    this.doSort = function(propName){
+      this.sortBy = propName;
+      this.reverse = !this.reverse;
     };
   };
 
-  // Prevent the minifier from breaking dependency injection.
-  CustomersController.$inject = ['$scope'];
 
   // The Controller is part of the module.
   angular.module('customersApp').controller('customersController', CustomersController);
@@ -150,8 +148,6 @@ http://localhost:5000
 #### Inspect with Chrome
 
 Inspect the page to see how the div with ng-view is replaced by the view defined in app/views/customers.html
-
-## Lab
 
 ## Demo
 
@@ -193,28 +189,28 @@ We will add a route, view and controller for orders.
 ```
 (function ordersControllerIIFE(data){
 
-  var OrdersController = function($scope, $routeParams){
+  var OrdersController = function($routeParams){
     var customerId = $routeParams.customerId;
-    $scope.orders = null;
+    this.orders = null;
 
     // private function, not available outside of IIFE
     function init(){
       // Search for the customer by id
       for(var i=0, len=$scope.customers.length; i < len; i++){
-        if($scope.customers[i].id == parseInt(customerId)){
-          $scope.orders = $scope.customers[i].orders;
+        if(this.customers[i].id == parseInt(customerId)){
+          this.orders = this.customers[i].orders;
           break;
         }
       }
     }
 
-    $scope.customers= data;
+    this.customers= data;
 
     init();
   };
 
   // Prevent the minifier from breaking dependency injection.
-  OrdersController.$inject = ['$scope', '$routeParams'];
+  OrdersController.$inject = ['$routeParams'];
 
   // The Controller is part of the module.
   angular.module('customersApp').controller('ordersController', OrdersController);
@@ -223,11 +219,10 @@ We will add a route, view and controller for orders.
 
 ```
 
-* This controller will have two services injected into it.
-	* $scope (ViewModel)
+* This controller will have one service injected into it.
 	* $routeParams - This will allow access to HTTP paramenters.
 * We will get the customer ID from the $routeParams.
-* We will put the global customerData in this controller's $scope.
+* We will put the global customerData in this controller's scope.
 * We will, in the init method, search thru our data looking for a customer with this ID. Then add  matching entries into the $scope.
 
 
@@ -254,7 +249,7 @@ We will add a route, view and controller for orders.
 
 #### Finally don't forget about the customerData
 
-This is just hard coded data that lives in the global scope for now. It will be replaced by the data coming from the back end. 
+This is just hard coded data that lives in the global scope for now. It will be replaced by the data coming from the back end.
 
 It's a hard coded file, app/customerData.js that should be referenced from the index.html, shell file.
 
@@ -273,5 +268,5 @@ It's a hard coded file, app/customerData.js that should be referenced from the i
 
 [API Documentation](https://docs.angularjs.org/api)
 
-This is like the $.ajax in JQuery.  
-[Ajax HTTP Service](https://docs.angularjs.org/api/ng/service/$http) 
+This is like the $.ajax in JQuery.
+[Ajax HTTP Service](https://docs.angularjs.org/api/ng/service/$http)

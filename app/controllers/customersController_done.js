@@ -2,15 +2,15 @@
 
   // Controller
   var CustomersController = function($scope){
-    $scope.sortBy = "name";
-    $scope.reverse = false;
+    this.sortBy = "name";
+    this.reverse = false;
 
     $scope.doSort = function(propName){
-      $scope.sortBy = propName;
-      $scope.reverse = !$scope.reverse;
+      this.sortBy = propName;
+      this.reverse = !this.reverse;
     };
 
-    $scope.customers= data;
+    this.customers = data;
   };
 
   // The Controller is part of the module.
