@@ -70,7 +70,7 @@ _Notice the use of a Immediately Invoked Function Expression (IIFE). This is a v
 
 _In this case we have named the IIFE to 'customersAppIIFE'. The name is only useful when debugging and viewing the call stack_
 
-```
+```javascript
 (function customersAppIIFE(){
   var app = angular.module('customersApp', ['ngRoute']);
 
@@ -79,7 +79,7 @@ _In this case we have named the IIFE to 'customersAppIIFE'. The name is only use
       .when('/',
             {
               controller: 'customersController',
-              templateUrl: 'app/views/customers.html'
+              templateUrl: 'app/views/customers_done.html'
             }
            )
       .otherwise({redirectTo: '/'});
@@ -103,7 +103,7 @@ _In this case we have named the IIFE to 'customersAppIIFE'. The name is only use
 #### Create a app/controllers/customersController.js file
 
 
-```
+```javascript
 // Wrap the Controller declaration in an IFFE
 // This will avoid creating another varible, CustomersController
 // In the global namespace.
@@ -155,8 +155,7 @@ We will add a route, view and controller for orders.
 
 #### Add more routes to the app/app.js file
 
-
-```
+```javascript
 (function customersAppIIFE(){
   var app = angular.module('customersApp', ['ngRoute']);
 
@@ -186,7 +185,7 @@ We will add a route, view and controller for orders.
 
 #### Add a ordersController in app/controllers.
 
-```
+```javascript
 (function ordersControllerIIFE(data){
 
   var OrdersController = function($routeParams){
@@ -196,7 +195,7 @@ We will add a route, view and controller for orders.
     // private function, not available outside of IIFE
     function init(){
       // Search for the customer by id
-      for(var i=0, len=$scope.customers.length; i < len; i++){
+      for(var i=0, len= this.customers.length; i < len; i++){
         if(this.customers[i].id == parseInt(customerId)){
           this.orders = this.customers[i].orders;
           break;
@@ -223,12 +222,12 @@ We will add a route, view and controller for orders.
 	* $routeParams - This will allow access to HTTP paramenters.
 * We will get the customer ID from the $routeParams.
 * We will put the global customerData in this controller's scope.
-* We will, in the init method, search thru our data looking for a customer with this ID. Then add  matching entries into the $scope.
+* We will, in the init method, search thru our data looking for a customer with this ID. Then add  matching entries into the scope.
 
 
 #### Add a view for orders into app/views/orders.html.
 
-```
+```html
  <h3>Orders</h3>
  <table>
   <tr>
@@ -244,9 +243,6 @@ We will add a route, view and controller for orders.
 
 ```
 
-
-
-
 #### Finally don't forget about the customerData
 
 This is just hard coded data that lives in the global scope for now. It will be replaced by the data coming from the back end.
@@ -254,7 +250,7 @@ This is just hard coded data that lives in the global scope for now. It will be 
 It's a hard coded file, app/customerData.js that should be referenced from the index.html, shell file.
 
 
-```
+```html
 ...
     <script type='text/javascript' src='js/angular-route.js'></script>
     <script type='text/javascript' src='app/customerData.js'></script>
