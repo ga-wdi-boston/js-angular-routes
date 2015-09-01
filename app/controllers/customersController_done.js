@@ -1,19 +1,18 @@
-(function customersControllerIIFE(data, ang){
+(function customersControllerIIFE(){
 
   // Controller
   var CustomersController = function($scope){
     this.sortBy = "name";
     this.reverse = false;
+  };
 
-    $scope.doSort = function(propName){
-      this.sortBy = propName;
-      this.reverse = !this.reverse;
-    };
-
-    this.customers = data;
+  CustomersController.prototype.doSort = function(propName){
+    this.sortBy = propName;
+    this.reverse = !this.reverse;
   };
 
   // The Controller is part of the module.
-  ang.module('customersApp').controller('customersController', CustomersController);
+  angular.module('customersApp')
+    .controller('customersController', CustomersController);
 
-})(customerData, angular);
+})();
