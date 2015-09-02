@@ -1,79 +1,26 @@
-(function customersControllerIIFE(ang){
+(function customersControllerIIFE(customers, ang){
 
+  // Constructor function for the Customer's Controller
+  // Using 'Controller as' so an instance of the CustomerController
+  // will be used as the ViewModel
   var CustomersController = function(){
+    // default property to sort customers by
     this.sortBy = "name";
+    // default is NOT to reverse the customer's sort order
     this.reverse = false;
-
-    this.customers = [
-      {
-        id: 1,
-        joined: '2000-12-02',
-        name:'John',
-        city:'Chandler',
-        orderTotal: 9.9956,
-        orders: [
-          {
-            id: 1,
-            product: 'Shoes',
-            total: 9.9956
-          }
-        ]
-      },
-      {
-        id: 2,
-        joined: '1965-01-25',
-        name:'Zed',
-        city:'Las Vegas',
-        orderTotal: 19.99,
-        orders: [
-          {
-            id: 2,
-            product: 'Baseball',
-            total: 9.995
-          },
-          {
-            id: 3,
-            product: 'Bat',
-            total: 9.995
-          }
-        ]
-      },
-      {
-        id: 3,
-        joined: '1944-06-15',
-        name:'Tina',
-        city:'New York',
-        orderTotal:44.99,
-        orders: [
-          {
-            id: 4,
-            product: 'Headphones',
-            total: 44.99
-          }
-        ]
-      },
-      {
-        id: 4,
-        joined: '1995-03-28',
-        name:'Dave',
-        city:'Seattle',
-        orderTotal:101.50,
-        orders: [
-          {
-            id: 5,
-            product: 'Kindle',
-            total: 101.50
-          }
-        ]
-      }
-    ];
+    // add a property to the View Model to reference the global array of customers
+    this.customers = customers;
   };
 
   CustomersController.prototype.doSort = function(propName){
+    // change the property to sort by
     this.sortBy = propName;
+    // toggle the sort order ascending <-> descending
     this.reverse = !this.reverse;
   };
 
   ang.module('customersApp').controller('customersController', CustomersController);
 
-})(angular);
+  // kind of gross to inject the global customerData here, we'll be getting
+  // from a the backend, via a factory, in a moment
+})(customerData, angular);
